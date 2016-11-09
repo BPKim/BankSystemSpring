@@ -9,8 +9,8 @@ import com.cjon.bank.util.DBTemplate;
 
 public class BankService {
 
-	DBTemplate template = null;
-	BankDAO dao = null;
+	private DBTemplate template = null;
+	private BankDAO dao = null;
 	
 	public DBTemplate getTemplate() {
 		return template;
@@ -29,10 +29,7 @@ public class BankService {
 	}
 
 	public BankDTO deposit(BankDTO dto) {
-
-		//DBTemplate template = new DBTemplate();
-		
-		//BankDAO dao = new BankDAO(template);
+		dao.setTemplate(template);
 		dto = dao.update(dto);
 		if (dto.isResult()) {
 			template.commit();
@@ -48,8 +45,7 @@ public class BankService {
 	}
 
 	public BankDTO withdraw(BankDTO dto) {
-		//DBTemplate template = new DBTemplate();
-		//BankDAO dao = new BankDAO(template);
+		dao.setTemplate(template);
 		dto = dao.updateWithdraw(dto);
 		
 		if (dto.isResult()) {
@@ -68,12 +64,10 @@ public class BankService {
 	}
 
 	public ArrayList<BankDTO> transfer(BankDTO dto1, BankDTO dto2) {
-		//DBTemplate template = new DBTemplate();
-		//BankDAO dao = new BankDAO(template);
+		dao.setTemplate(template);
 		
 		dto1 = dao.updateWithdraw(dto1); // 출금처리
 		dto2 = dao.update(dto2); // 입금 처리
-
 		
 		if (dto1.isResult() && dto2.isResult()) {
 			template.commit();
@@ -83,7 +77,6 @@ public class BankService {
 		
 		ArrayList<BankDTO> list = new ArrayList<BankDTO>();
 		
-
 		list.add(dto1);
 		list.add(dto2);
 		

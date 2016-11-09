@@ -20,12 +20,7 @@ public class Main {
 		ctx.load(config);
 		
 		ctx.refresh();
-		BankDTO dto1 = ctx.getBean("dto1", BankDTO.class); // 출금 처리를 위한 DTO
-		BankDTO dto2 = ctx.getBean("dto2", BankDTO.class); // 입금 처리를 위한 DTO
-		BankDTO dto = ctx.getBean("dto", BankDTO.class);
-		BankService service = ctx.getBean("service", BankService.class);
-		
-		
+	
 		Scanner s = new Scanner(System.in);
 		int menu = 0;
 
@@ -46,12 +41,12 @@ public class Main {
 				String moneyString =s.nextLine(); 
 				int money = Integer.parseInt(moneyString);
 				// 데이터의 전달을 위해서 DTO객체를 생성
-				
+				BankDTO dto = ctx.getBean("dto", BankDTO.class);
 				dto.setUserid(id);
 				dto.setBalance(money);
 				// 로직처리를 위해서 Sevice객체를 생성
 //				BankService service = new BankService(); 
-				
+				BankService service = ctx.getBean("service", BankService.class);
 				// DTO를 통해서 data를 넘겨주고 data를 받아오기 
 				dto = service.deposit(dto);
 				System.out.println("처리된 결과는 다음과 같습니다.");
@@ -66,11 +61,11 @@ public class Main {
 				String moneyString =s.nextLine(); 
 				int money = Integer.parseInt(moneyString);
 				// 데이터의 전달을 위해서 DTO객체를 생성
-//				BankDTO dto = ctx.getBean("dto", BankDTO.class);
+				BankDTO dto = ctx.getBean("dto", BankDTO.class);
 				dto.setUserid(id);
 				dto.setBalance(money);
 				// 로직처리를 위해서 Sevice객체를 생성
-//				BankService service = ctx.getBean("service", BankService.class);
+				BankService service = ctx.getBean("service", BankService.class);
 				// DTO를 통해서 data를 넘겨주고 data를 받아오기 
 				dto = service.withdraw(dto);
 				System.out.println("처리된 결과는 다음과 같습니다.");
@@ -87,15 +82,15 @@ public class Main {
 				String moneyString =s.nextLine(); 
 				int money = Integer.parseInt(moneyString);
 				// 데이터의 전달을 위해서 DTO객체를 생성
-				
+				BankDTO dto1 = ctx.getBean("dto", BankDTO.class); // 출금 처리를 위한 DTO
+				BankDTO dto2 = ctx.getBean("dto", BankDTO.class); // 입금 처리를 위한 DTO
 				dto1.setUserid(id1);
 				dto1.setBalance(money);
 
 				dto2.setUserid(id2);
 				dto2.setBalance(money);
 				// 로직처리를 위해서 Sevice객체를 생성
-//				BankService service = ctx.getBean("service", BankService.class);
-				
+				BankService service = ctx.getBean("service", BankService.class);
 				ArrayList<BankDTO> list = service.transfer(dto1,dto2);
 				// DTO를 통해서 data를 넘겨주고 data를 받아오기 
 				dto1 = list.get(0);

@@ -18,6 +18,14 @@ public class BankDAO {
 		this.template = template;
 	}
 
+	public DBTemplate getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(DBTemplate template) {
+		this.template = template;
+	}
+
 	public BankDTO update(BankDTO dto) {
 
 		// Database 처리를 해야 해요!!
